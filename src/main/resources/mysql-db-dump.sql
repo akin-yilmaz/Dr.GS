@@ -15,7 +15,7 @@ CREATE TABLE if not exists user_progress (
 CREATE TABLE if not exists live_ops_event (
     id INT PRIMARY KEY AUTO_INCREMENT,
     event_type TINYINT DEFAULT 0, -- O : POP_THE_BALLOON
-    name VARCHAR(255) DEFAULT "Pop The Balloon Event",
+    name VARCHAR(255) DEFAULT 'Pop The Balloon Event',
     started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ended_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
