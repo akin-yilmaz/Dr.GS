@@ -1,7 +1,7 @@
 package com.dreamgames.backendengineeringcasestudy.domain;
 
 public enum TestGroup {
-    /*
+
     A(0),
     B(1);
 
@@ -23,7 +23,4 @@ public enum TestGroup {
         }
         throw new IllegalArgumentException("Invalid status code: " + code);
     }
-    */
-    A,
-    B;
 }

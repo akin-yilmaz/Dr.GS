@@ -13,13 +13,4 @@ public class UserProgressMapper {
                 userProgress.getHelium(),
                 userProgress.getTestGroup());
     }
-
-    public static UserProgress dtoToEntity(UserProgressInformation userProgressInformation){
-        var entity = new UserProgress();
-        entity.setCoin(userProgressInformation.coin());
-        entity.setLevelAt(userProgressInformation.levelAt());
-        entity.setTestGroup(userProgressInformation.testGroup());
-        return entity;
-    }
-
 }

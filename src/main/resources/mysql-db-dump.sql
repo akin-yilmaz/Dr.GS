@@ -22,7 +22,8 @@ CREATE TABLE if not exists live_ops_event (
 
 CREATE TABLE if not exists invitation (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    status TINYINT DEFAULT 0, -- O : PENDING, 1 : APPROVED, 2 : REJECTED
+    --invitation_status TINYINT DEFAULT 0, -- O : PENDING, 1 : APPROVED, 2 : REJECTED, 3 : INVALIDATED(this means make 'PENDING's 'INVALIDATED' after 'APPROVED')
+    invitation_status VARCHAR(255) DEFAULT 'PENDING',
     sender_user_id INT NOT NULL,
     receiver_user_id INT DEFAULT NULL,
     event_id INT NOT NULL,
@@ -33,9 +34,11 @@ CREATE TABLE if not exists invitation (
 
 CREATE TABLE if not exists collaboration (
     invitation_id INT PRIMARY KEY,
-    status TINYINT DEFAULT 0, -- O : IN_PROGRESS, 1 : SUSPENDED
+    collaboration_status VARCHAR(255) DEFAULT 0, -- O : IN_PROGRESS, 1 : COMPLETED, 2: SUSPENDED
     sender_user_helium_contribution DOUBLE DEFAULT 0,
     receiver_user_helium_contribution DOUBLE DEFAULT 0,
+    is_reward_claimed_by_sender INT DEFAULT 0, -- 0 : FALSE, 1 : TRUE
+    is_reward_claimed_by_receiver INT DEFAULT 0, -- 0 : FALSE, 1 : TRUE
     FOREIGN KEY (invitation_id) REFERENCES invitation(id)
 );
 
