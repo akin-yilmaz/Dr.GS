@@ -41,6 +41,7 @@ public class UserProgressService {
     @Value("${app.constant.event-end}")
     private Integer eventEnd;
 
+
     @Autowired
     public UserProgressService(UserProgressRepository userProgressRepository) {
         this.userProgressRepository = userProgressRepository;
