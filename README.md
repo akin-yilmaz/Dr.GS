@@ -1,4 +1,4 @@
-# Backend Engineering Case Study
+# Dr. GS
 
 I'm currently learning reactive programming with WebFlux and this is my first study of this topic.
 
