@@ -4,7 +4,7 @@ public enum CollaborationStatus {
 
     IN_PROGRESS(0),
     COMPLETED(1),
-    REJECTED(2);
+    SUSPENDED(2);
 
     private final int code;
 

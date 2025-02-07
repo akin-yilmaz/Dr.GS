@@ -9,6 +9,9 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Collaboration {
 
     @Id
+    @Column("id")
+    private Integer id;
+    //@Id -> this prevents inserting an object into database whose index is set and that does not exist in the database
     @Column("invitation_id")
     private Integer invitationId;
     @Column("collaboration_status")
@@ -21,6 +24,14 @@ public class Collaboration {
     private Integer isRewardClaimedBySender; // 0 : FALSE, 1 : TRUE
     @Column("is_reward_claimed_by_receiver")
     private Integer isRewardClaimedByReceiver; // 0 : FALSE, 1 : TRUE
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getInvitationId() {
         return invitationId;
@@ -68,5 +79,18 @@ public class Collaboration {
 
     public void setIsRewardClaimedByReceiver(Integer isRewardClaimedByReceiver) {
         this.isRewardClaimedByReceiver = isRewardClaimedByReceiver;
+    }
+
+    @Override
+    public String toString() {
+        return "Collaboration{" +
+                "id=" + id +
+                ", invitationId=" + invitationId +
+                ", collaborationStatus=" + collaborationStatus +
+                ", senderUserHeliumContribution=" + senderUserHeliumContribution +
+                ", receiverUserHeliumContribution=" + receiverUserHeliumContribution +
+                ", isRewardClaimedBySender=" + isRewardClaimedBySender +
+                ", isRewardClaimedByReceiver=" + isRewardClaimedByReceiver +
+                '}';
     }
 }

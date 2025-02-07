@@ -26,14 +26,14 @@ public interface InvitationRepository extends ReactiveCrudRepository<Invitation,
         FROM
             user_progress u
         WHERE
-            u.id <> :userProgressId AND u.test_group = :testGroup 
+            u.id <> :userProgressId AND u.test_group = :testGroup AND u.level_at >=50
             
             AND u.id NOT IN ( SELECT
                                   u.id
                               FROM
                                   invitation i, user_progress u
                               WHERE
-                                  (u.id = i.sender_user_id OR u.id = i.sender_user_id) AND u.test_group = :testGroup AND i.event_id = :eventId AND i.invitation_status = 'APPROVED'
+                                  (u.id = i.sender_user_id OR u.id = i.receiver_user_id) AND u.test_group = :testGroup AND i.event_id = :eventId AND i.invitation_status = 'APPROVED'
                              )
             
             AND u.id NOT IN ( SELECT

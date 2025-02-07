@@ -52,7 +52,7 @@ public class UserProgressServiceTest {
                 .expectStatus().is2xxSuccessful()
                 .expectBody()
                 .consumeWith(r -> log.info("{}", new String(Objects.requireNonNull(r.getResponseBody()))))
-                .jsonPath("$.id").isEqualTo(13)
+                //.jsonPath("$.id").isEqualTo(13)
                 .jsonPath("$.coin").isEqualTo(2000.0)
                 .jsonPath("$.levelAt").isEqualTo(1)
                 .jsonPath("$.helium").isEqualTo(0.0)

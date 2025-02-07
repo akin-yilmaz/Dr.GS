@@ -94,7 +94,6 @@ public class InvitationService {
                     if (list.size() <= 10) {
                         List<UserProgressInformation> mappedList = list.stream().map(element -> UserProgressMapper.entityToDto(element)).collect(Collectors.toList());
                         return Mono.just(mappedList);
-
                     }
                     Collections.shuffle(list);
                     List<UserProgressInformation> randomTen = list.stream()
@@ -244,8 +243,9 @@ public class InvitationService {
                                 )
                                 .doOnNext(invitation -> invitation.setInvitationStatus(InvitationStatus.INVALIDATED))
                                 .flatMap(invitation -> this.invitationRepository.save(invitation))
-                                .then()
-                                .flatMap(voidMono -> Mono.just(collaborationInformation))
+                                .then(Mono.just(collaborationInformation))
+                                //.flatMap(voidMono -> Mono.just(collaborationInformation))
+
                 );
 
     }
@@ -276,7 +276,7 @@ public class InvitationService {
         }
 
         Mono<Invitation> invitationMono = this.invitationRepository.findById(invitationId);
-        Mono<Collaboration> collaborationMono = this.collaborationRepository.findById(invitationId);
+        Mono<Collaboration> collaborationMono = this.collaborationRepository.findByInvitationId(invitationId);
 
         return Mono.zip(invitationMono, collaborationMono)
                 .map(tuple -> CollaborationMapper.entityToDto(tuple.getT1(), tuple.getT2(), userProgressId));
@@ -290,7 +290,7 @@ public class InvitationService {
             return ApplicationExceptions.IllegalDate();
         }
 
-        return this.collaborationRepository.findById(invitationId)
+        return this.collaborationRepository.findByInvitationId(invitationId)
                 .flatMap(collaboration -> {
                     if (collaboration.getCollaborationStatus() == CollaborationStatus.COMPLETED) {
                         return ApplicationExceptions.BalloonAlreadyInflated();
@@ -351,7 +351,7 @@ public class InvitationService {
             return ApplicationExceptions.IllegalDate();
         }
 
-        return this.collaborationRepository.findById(invitationId)
+        return this.collaborationRepository.findByInvitationId(invitationId)
                 .flatMap(collaboration -> {
                     if (collaboration.getCollaborationStatus() != CollaborationStatus.COMPLETED) {
                         return ApplicationExceptions.BalloonNotFullyInflated();

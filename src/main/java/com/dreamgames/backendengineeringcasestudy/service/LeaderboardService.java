@@ -4,6 +4,7 @@ import com.dreamgames.backendengineeringcasestudy.domain.TestGroup;
 import com.dreamgames.backendengineeringcasestudy.dto.UserProgressInformation;
 import com.dreamgames.backendengineeringcasestudy.mapper.UserProgressMapper;
 import com.dreamgames.backendengineeringcasestudy.repository.UserProgressRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,9 +31,14 @@ public class LeaderboardService {
         this.userProgressRepository = userProgressRepository;
         this.sinkA = sinkA;
         this.sinkB = sinkB;
+    }
+
+    @PostConstruct
+    public void init() { // @Value annotation is run after the constuctor
         startPublishingA();
         startPublishingB();
     }
+
 
     private void startPublishingA() {
         Flux.interval(Duration.ofSeconds(leaderboardScheduleTime))  // Runs every 10 seconds
@@ -48,7 +54,7 @@ public class LeaderboardService {
                 .subscribe();
     }
 
-    public Flux<UserProgressInformation> userProgressInformationStream(Integer userProgressId){
+    public Flux<UserProgressInformation> getLeaderboardStream(Integer userProgressId){
 
         return this.userProgressRepository.findById(userProgressId)
                 .flatMapMany(userProgress -> {

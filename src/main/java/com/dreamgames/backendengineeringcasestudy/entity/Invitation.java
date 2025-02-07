@@ -59,4 +59,15 @@ public class Invitation {
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
+
+    @Override
+    public String toString() {
+        return "Invitation{" +
+                "id=" + id +
+                ", invitationStatus=" + invitationStatus +
+                ", senderId=" + senderId +
+                ", receiverId=" + receiverId +
+                ", eventId=" + eventId +
+                '}';
+    }
 }

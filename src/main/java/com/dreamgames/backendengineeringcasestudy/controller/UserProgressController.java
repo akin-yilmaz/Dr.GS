@@ -48,10 +48,10 @@ public class UserProgressController {
                 .switchIfEmpty(ApplicationExceptions.customerNotFound(userProgressId));
     }
 
-    @GetMapping(value = "/leaderboard-stream", produces = MediaType.APPLICATION_NDJSON_VALUE)
+    @GetMapping(value = "/leaderboard-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<UserProgressInformation> getLeaderboard(@RequestParam Integer userProgressId) {
 
-        return this.leaderboardService.userProgressInformationStream(userProgressId)
+        return this.leaderboardService.getLeaderboardStream(userProgressId)
                 .switchIfEmpty(ApplicationExceptions.customerNotFound(userProgressId));
     }
 

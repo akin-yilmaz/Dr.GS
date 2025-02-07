@@ -11,6 +11,7 @@ public class CollaborationMapper {
         if(requesterUserProgressId == invitation.getSenderId()){
             return new CollaborationInformation(
                     InvitationMapper.entityToDto(invitation),
+                    collaboration.getId(),
                     collaboration.getCollaborationStatus(),
                     collaboration.getSenderUserHeliumContribution(),
                     collaboration.getReceiverUserHeliumContribution(),
@@ -20,6 +21,7 @@ public class CollaborationMapper {
         else{
             return new CollaborationInformation(
                     InvitationMapper.entityToDto(invitation),
+                    collaboration.getId(),
                     collaboration.getCollaborationStatus(),
                     collaboration.getReceiverUserHeliumContribution(),
                     collaboration.getSenderUserHeliumContribution(),
