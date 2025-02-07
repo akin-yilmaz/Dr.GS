@@ -8,8 +8,7 @@ CREATE TABLE if not exists user_progress (
     coin DOUBLE DEFAULT 2000,
     level_at INT DEFAULT 1,
     helium DOUBLE DEFAULT 0,
-    --testGroup TINYINT DEFAULT 0 -- O : A, 1 : B
-    test_group VARCHAR(255) DEFAULT 'A'
+    test_group VARCHAR(255) DEFAULT 'A' -- testGroup TINYINT DEFAULT 0 -- O : A, 1 : B
 );
 
 CREATE TABLE if not exists live_ops_event (
@@ -22,8 +21,7 @@ CREATE TABLE if not exists live_ops_event (
 
 CREATE TABLE if not exists invitation (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    --invitation_status TINYINT DEFAULT 0, -- O : PENDING, 1 : APPROVED, 2 : REJECTED, 3 : INVALIDATED(this means make 'PENDING's 'INVALIDATED' after 'APPROVED')
-    invitation_status VARCHAR(255) DEFAULT 'PENDING',
+    invitation_status VARCHAR(255) DEFAULT 'PENDING', -- invitation_status TINYINT DEFAULT 0, -- O : PENDING, 1 : APPROVED, 2 : REJECTED, 3 : INVALIDATED(this means make 'PENDING's 'INVALIDATED' after 'APPROVED')
     sender_user_id INT NOT NULL,
     receiver_user_id INT DEFAULT NULL,
     event_id INT NOT NULL,

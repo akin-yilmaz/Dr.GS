@@ -94,7 +94,7 @@ public class InvitationServiceTest {
                 .expectStatus().is4xxClientError()
                 .expectBody()
                 .consumeWith(r -> log.info("{}", new String(Objects.requireNonNull(r.getResponseBody()))))
-                .jsonPath("$.detail").isEqualTo("Your level [level=30] is less than 50");
+                .jsonPath("$.detail").isEqualTo("Your level is less than 50");
 
     }
 
