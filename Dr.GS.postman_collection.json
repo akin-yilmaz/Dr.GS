@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "89963a91-9acf-4ee7-a197-ca0b23021996",
+		"name": "Dr.GS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30914237"
+	},
+	"item": [
+		{
+			"name": "UserProgress",
+			"item": [
+				{
+					"name": "GetUserProgress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user_progress?userProgressId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user_progress"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUserRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user_progress?testGroup=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user_progress"
+							],
+							"query": [
+								{
+									"key": "testGroup",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLevelRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user_progress?userProgressId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user_progress"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invitation",
+			"item": [
+				{
+					"name": "GetSuggestionsRequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/suggestions?userProgressId=9&eventId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"suggestions"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "9"
+								},
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetInvitationsRequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation?userProgressId=17&eventId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "17"
+								},
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InvitePartnerRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation?senderUserProgressId=17&receiverUserProgressId=19&eventId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation"
+							],
+							"query": [
+								{
+									"key": "senderUserProgressId",
+									"value": "17"
+								},
+								{
+									"key": "receiverUserProgressId",
+									"value": "19"
+								},
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RejectPlayerRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/reject?invitationId=5&receiverUserProgressId=21&eventId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"reject"
+							],
+							"query": [
+								{
+									"key": "invitationId",
+									"value": "5"
+								},
+								{
+									"key": "receiverUserProgressId",
+									"value": "21"
+								},
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AcceptPlayerRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/accept?invitationId=6&receiverUserProgressId=21&eventId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"accept"
+							],
+							"query": [
+								{
+									"key": "invitationId",
+									"value": "6"
+								},
+								{
+									"key": "receiverUserProgressId",
+									"value": "21"
+								},
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalloonsInfoRequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/collaboration?userProgressId=3&invitationId=1&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"collaboration"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "3"
+								},
+								{
+									"key": "invitationId",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBalloonProgressRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/collaboration/inflate-balloon?userProgressId=8&invitationId=9&timestamp=2025-02-03T09:09:11.287243Z&consumedHelium=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"collaboration",
+								"inflate-balloon"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "8"
+								},
+								{
+									"key": "invitationId",
+									"value": "9"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								},
+								{
+									"key": "consumedHelium",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBalloonProgressRequest Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/invitation/collaboration/claim-reward?userProgressId=12&invitationId=10&timestamp=2025-02-03T09:09:11.287243Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"invitation",
+								"collaboration",
+								"claim-reward"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "12"
+								},
+								{
+									"key": "invitationId",
+									"value": "10"
+								},
+								{
+									"key": "timestamp",
+									"value": "2025-02-03T09:09:11.287243Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LeaderBoard",
+			"item": [
+				{
+					"name": "GetLeaderboardRequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user_progress/leaderboard-stream?userProgressId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user_progress",
+								"leaderboard-stream"
+							],
+							"query": [
+								{
+									"key": "userProgressId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
