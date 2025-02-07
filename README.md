@@ -16,7 +16,8 @@ Below is the database schema of this project:
 
 #### 1. GetUserRequest: Parameters: [Integer userProgressId]
 
-If the user does not exist return "customerNotFound" exception.  
+If the user does not exist return "customerNotFound" exception. 
+
 Return the entity based on the "userProgressId".
 
 #### 2. CreateUserRequest: Parameters: [TestGroup testGroup]
@@ -30,8 +31,10 @@ Return the saved entity.
 If the user does not exist, return "customerNotFound" exception.
 
 First find the userProgress entity by "userProgressId" and apply level-up() procedure.
+
 Then, if the timestamp is between 08:00 and 22:00 (UTC) and the user is at least 50 level,
 then apply rewardHeliumConditionally() procedure.
+
 Finally save the updated entity into database in a non-blocking way as always and return the saved entiy to client.
 
 ### 2.Pop The Balloon Event
@@ -65,6 +68,7 @@ I was going to return pageable object but I did not have enough time to do. But 
 #### 3. InvitePartnerRequest: Parameters: [Integer senderUserProgressId, Integer receiverUserProgressId, Integer eventId, Instant timestamp]
 
 If the requester(sender) is already matched, then return RequesterAlreadyCollaborated() exception.
+
 If the requested(receiver) is already matched, then return RequestedAlreadyCollaborated() exception.
 
 Create and save the Invitation object whose status is 'PENDING' and return this saved entity to the client.
@@ -80,6 +84,7 @@ Return the updated Invitation object to the client.
 Most important and complicated endpoint.
 
 If the requester(receiverUserProgressId) is already matched, then return RequesterAlreadyCollaborated() exception.
+
 If the requested(sender) is already matched, then return RequestedAlreadyCollaborated() exception.
 
 First find the Invitation entity by invitationId and update the status of this entity from 'PENDING' to 'APPROVED'.
