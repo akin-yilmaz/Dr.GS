@@ -2,6 +2,7 @@ package com.dreamgames.backendengineeringcasestudy;
 
 import com.dreamgames.backendengineeringcasestudy.dto.UserProgressInformation;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.slf4j.Logger;
@@ -16,7 +17,6 @@ import java.util.Objects;
 
 @AutoConfigureWebTestClient
 @SpringBootTest()
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LeaderboardServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(LeaderboardServiceTest.class);

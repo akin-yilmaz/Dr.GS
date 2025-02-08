@@ -11,6 +11,9 @@ services:
       - '8080:8080'
     networks:
       - 'local-network'
+    depends_on:
+      mysqldb:
+        condition: service_healthy  # Waits until MySQL is healthy
 
   mysqldb:
     image: mysql:8.0.35-oracle
@@ -28,6 +31,12 @@ services:
     volumes:
       - case-mysql-data:/var/lib/case-mysqldb
       - ./mysql-db-dump.sql:/docker-entrypoint-initdb.d/mysql-db-dump.sql:ro
+    healthcheck: # Wait until MySQL is fully ready
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uuser", "-ppassword" ]
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 5s
 
 volumes:
   case-mysql-data:
