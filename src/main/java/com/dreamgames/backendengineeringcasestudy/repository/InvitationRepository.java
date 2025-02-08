@@ -51,6 +51,9 @@ public interface InvitationRepository extends ReactiveCrudRepository<Invitation,
                               WHERE
                                     i.invitation_status = 'PENDING' AND i.event_id = :eventId AND i.sender_user_id = :userProgressId  
                             )
+            ORDER BY RAND()
+            
+            LIMIT 10
        """)
     Flux<UserProgress> getSuggestions(Integer userProgressId, Integer eventId, TestGroup testGroup);
 

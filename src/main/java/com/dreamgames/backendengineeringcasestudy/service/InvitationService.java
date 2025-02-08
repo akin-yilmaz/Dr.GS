@@ -88,20 +88,10 @@ public class InvitationService {
                 )
                 .cast(UserProgress.class)
                 .flatMap(dbEntity ->
-                        this.invitationRepository.getSuggestions(userProgressId, eventId, dbEntity.getTestGroup()).collectList()
-                )
-                .flatMap(list -> {
-                    if (list.size() <= 10) {
-                        List<UserProgressInformation> mappedList = list.stream().map(element -> UserProgressMapper.entityToDto(element)).collect(Collectors.toList());
-                        return Mono.just(mappedList);
-                    }
-                    Collections.shuffle(list);
-                    List<UserProgressInformation> randomTen = list.stream()
-                            .limit(10)
-                            .map(element -> UserProgressMapper.entityToDto(element))
-                            .collect(Collectors.toList());
-                    return Mono.just(randomTen);
-                });
+                        this.invitationRepository.getSuggestions(userProgressId, eventId, dbEntity.getTestGroup())
+                                .map(element -> UserProgressMapper.entityToDto(element))
+                                .collectList()
+                );
 
     }
 
