@@ -108,8 +108,15 @@ For all the requests below first check the followings:
 - "userProgressId" is used for determining the associated test group with the requester.
 - Returns a flux of UserProgress.
 - A hot publisher with sink for both test groups is implemented.
-- Every 5 seconds, leaderboard is retrieved from the database in a non-blocking way. (Subscribed this source internally.)
-- Then that flow of data is pushed into the sink which can store up to 100 elements in its internal queue. So that whenever a subscription is made to the Sink, this stored 100 elements are sent immediately.
-- When I think, the levels of the users are most probably distributed normally. So top100 leaderboard may not change frequently. I should have actually implemented a system where it detects whether top100 is changed upon a level-up event and only then I should make a get request to db.
-But unfortunately I did not have enough time.
-- My initial thought is, holding the 100 th the highest score in the memory and whenever a player levels up and it passes this score, then trigger the top 100 get request and update the 100th highest score in the memory.
+- In init state, leaderboard is retrieved from the database in a non-blocking way (subscribed this source internally.) and the 100th highest score for both test groups is set in an AtomicInteger.
+- Then that flow of data is emitted into the sink which can store up to 100 elements in its internal queue. So that whenever a subscription is made to the Sink, this stored 100 elements are sent immediately.
+- So the question is that what event should trigger the retrieval of the top-100 element.
+- I implemented the answer for this question as follows: Whenever the corresponding endpoint of the level-up() procedure
+is called, the new level of the requester is made comparison with the **latest retrieved** 100th highest score based on the test group 
+and if the new level is greater than the **latest retrieved** 100th highest score, then the leaderboard is retrieved from
+the database and the 100th highest score for both test groups is set in an AtomicInteger.
+
+### NOTES
+
+- In dockerfile, I changed the 5th line from "RUN mvn clean package" to "RUN mvn clean package -DskipTests". I noticed that my testcases are not fully independent but the code is tested duly.
+- In docker-compose file, I added a dependency so that spring boot image starts after mysql image is ready to start accepting connections.

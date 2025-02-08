@@ -6,6 +6,7 @@ import com.dreamgames.backendengineeringcasestudy.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.mapper.UserProgressMapper;
 import com.dreamgames.backendengineeringcasestudy.repository.UserProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -23,6 +25,7 @@ import java.util.function.UnaryOperator;
 public class UserProgressService {
 
     private UserProgressRepository userProgressRepository;
+    private LeaderboardService leaderboardService;
 
     @Value("${app.constant.coin-start}")
     private Double coinStart;
@@ -43,8 +46,9 @@ public class UserProgressService {
 
 
     @Autowired
-    public UserProgressService(UserProgressRepository userProgressRepository) {
+    public UserProgressService(UserProgressRepository userProgressRepository, LeaderboardService leaderboardService) {
         this.userProgressRepository = userProgressRepository;
+        this.leaderboardService = leaderboardService;
     }
 
     public Mono<UserProgressInformation> getUserProgress(Integer userProgressId){
@@ -64,6 +68,7 @@ public class UserProgressService {
     public Mono<UserProgressInformation> updateUserProgress(Integer userProgressId, Instant timestamp) {
         return this.userProgressRepository.findById(userProgressId)
                 .doOnNext(levelUp())
+                .doOnNext(triggerTop100Conditionally())
                 .map(rewardHeliumConditionally(timestamp))
                 .flatMap(dbEntity -> this.userProgressRepository.save(dbEntity))
                 .map(dbEntity -> UserProgressMapper.entityToDto(dbEntity));
@@ -82,6 +87,17 @@ public class UserProgressService {
         return (userProgress) -> {
             userProgress.setCoin(userProgress.getCoin() + this.coinReward);
             userProgress.setLevelAt(userProgress.getLevelAt() + 1);
+        };
+    }
+
+    private Consumer<UserProgress> triggerTop100Conditionally(){
+        return (userProgress) -> {
+            if(userProgress.getTestGroup() == TestGroup.A && userProgress.getLevelAt() > this.leaderboardService.get_100thHighestScoreA().get()){
+                this.leaderboardService.emitTop100A();
+            }
+            else if(userProgress.getTestGroup() == TestGroup.B && userProgress.getLevelAt() > this.leaderboardService.get_100thHighestScoreB().get()){
+                this.leaderboardService.emitTop100B();
+            }
         };
     }
 

@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Sinks;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Configuration
 public class ApplicationConfig {
 
@@ -20,5 +22,15 @@ public class ApplicationConfig {
     @Bean("sinkB")
     public Sinks.Many<UserProgressInformation> sinkB(){
         return Sinks.many().replay().limit(leaderboardSizeLimit);
+    }
+
+    @Bean("_100thHighestScoreA")
+    public AtomicInteger _100thHighestScoreA(){
+        return new AtomicInteger(0);
+    }
+
+    @Bean("_100thHighestScoreB")
+    public AtomicInteger _100thHighestScoreB(){
+        return new AtomicInteger(0);
     }
 }
