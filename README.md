@@ -110,11 +110,11 @@ For all the requests below first check the followings:
 - A hot publisher with sink for both test groups is implemented.
 - In init state, leaderboard is retrieved from the database in a non-blocking way (subscribed this source internally.) and the 100th highest score for both test groups is set in an AtomicInteger.
 - Then that flow of data is emitted into the sink which can store up to 100 elements in its internal queue. So that whenever a subscription is made to the Sink, this stored 100 elements are sent immediately.
-- So the question is that what event should trigger the retrieval of the top-100 element.
+- So the question is that what event should trigger the retrieval of the top-100 elements.
 - I implemented the answer for this question as follows: Whenever the corresponding endpoint of the level-up() procedure
 is called, the new level of the requester is made comparison with the **latest retrieved** 100th highest score based on the test group 
 and if the new level is greater than the **latest retrieved** 100th highest score, then the leaderboard is retrieved from
-the database and the 100th highest score for both test groups is set in an AtomicInteger.
+the database and the 100th highest score for the corresponding test group is set in an AtomicInteger.
 
 ### NOTES
 
