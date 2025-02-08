@@ -115,7 +115,8 @@ For all the requests below first check the followings:
 is called, the new level of the requester is made comparison with the **latest retrieved** 100th highest score based on the test group 
 and if the new level is greater than the **latest retrieved** 100th highest score, then the leaderboard is retrieved from
 the database and the 100th highest score for the corresponding test group is set in an AtomicInteger.
-
+-The reasoning behind this logic is that the score distribution of the users is most probably normal distribution and
+the top100 is likely to be changed infrequently, so I wanted to keep the database calls for the leaderboard at the minimum.  
 ### NOTES
 
 - In dockerfile, I changed the 5th line from "RUN mvn clean package" to "RUN mvn clean package -DskipTests". I noticed that my testcases are not fully independent but the code is tested duly.
